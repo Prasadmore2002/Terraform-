@@ -33,12 +33,38 @@ resource "aws_security_group" "my_sg" {
 
 
 resource "aws_instance" "my-instance" {
-    ami = "ami-0c7217cdde317cfec"
-    instance_type = "t2.micro"
+    ami = var.image_id 
+    instance_type = var.machine_type
     key_name = "univesal_key"
-    vpc_security_group_ids = ["sg-0f7ef2c962792ccbb"]
+    vpc_security_group_ids = ["sg-0f7ef2c962792ccbb", aws_security_group.my_sg.id]
     tags = {
       Name = "my_instance"
       env = "dev"
     }  
 }
+
+resource "aws_instance" "another_instance" {
+    ami = var.image_id
+    instance_type = var.machine_type
+    key_name = ""univesal_key"
+    vpc_security_group_ids = ["sg-0f0e3d11e9f465ba4"]
+    tags = {
+        Name = "abcd-instance"
+        env = "dev"
+    }
+}
+
+# Variables
+
+variable "image_id" {
+    default = "ami-0c7217cdde317cfec"
+}
+
+variable "machine_type" {
+    default = "t2.micro"
+}
+
+variable "vpc_id" {
+    default = "vpc-06cf206737ed67da7"
+}
+
