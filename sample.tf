@@ -36,7 +36,7 @@ resource "aws_instance" "my-instance" {
     ami = var.image_id 
     instance_type = var.machine_type
     key_name = "univesal_key"
-    vpc_security_group_ids = ["vpc-0b91c6bdd351646a1", aws_security_group.my_sg.id]
+    vpc_security_group_ids = ["sg-0f7ef2c962792ccbb", aws_security_group.my_sg.id]
     tags = {
       Name = "my_instance"
       env = "dev"
@@ -47,7 +47,7 @@ resource "aws_instance" "another_instance" {
     ami = var.image_id
     instance_type = var.machine_type
     key_name = ""univesal_key"
-    vpc_security_group_ids = ["vpc-0b91c6bdd351646a1"]
+    vpc_security_group_ids = ["sg-0f7ef2c962792ccbb"]
     tags = {
         Name = "abcd-instance"
         env = "dev"
