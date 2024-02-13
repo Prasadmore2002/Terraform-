@@ -8,7 +8,7 @@ provider "aws" {
 resource "aws_security_group" "my_sg" {
    name = "my-sg-group"
    description = "allow-ssh and http"
-   vpc_id = "vpc-0b91c6bdd351646a1"
+   vpc_id =  var.vpc_id
    ingress {
     protocol = "TCP"
     from_port = "22"
@@ -36,7 +36,7 @@ resource "aws_instance" "my-instance" {
     ami = var.image_id 
     instance_type = var.machine_type
     key_name = "univesal_key"
-    vpc_security_group_ids = ["sg-0f7ef2c962792ccbb", aws_security_group.my_sg.id]
+    vpc_security_group_ids = ["vpc-0b91c6bdd351646a1", aws_security_group.my_sg.id]
     tags = {
       Name = "my_instance"
       env = "dev"
@@ -47,7 +47,7 @@ resource "aws_instance" "another_instance" {
     ami = var.image_id
     instance_type = var.machine_type
     key_name = ""univesal_key"
-    vpc_security_group_ids = ["sg-0f0e3d11e9f465ba4"]
+    vpc_security_group_ids = ["vpc-0b91c6bdd351646a1"]
     tags = {
         Name = "abcd-instance"
         env = "dev"
@@ -65,6 +65,6 @@ variable "machine_type" {
 }
 
 variable "vpc_id" {
-    default = "vpc-06cf206737ed67da7"
+    default = "vpc-0b91c6bdd351646a1"
 }
 
