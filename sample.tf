@@ -1,4 +1,4 @@
-provider = "aws" {
+provider "aws" {
  region = "eu-east-1"
 }
 
