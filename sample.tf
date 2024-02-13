@@ -37,4 +37,8 @@ resource "aws_instance" "my-instance" {
     instance_type = "t2.micro"
     key_name = "univesal_key"
     vpc_security_group_ids = ["sg-0f7ef2c962792ccbb"]
+    tags = {
+      Name = "my_instance"
+      env = "dev"
+    }  
 }
