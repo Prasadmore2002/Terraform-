@@ -1,58 +1,57 @@
-
 provider "aws" {
- region = "us-east-1"
+    region = "us-east-1"
 }
 
-#  Create Security group
 
+# Create Security Group
 resource "aws_security_group" "my_sg" {
-   name = "my-sg-group"
-   description = "allow-ssh and http"
-   vpc_id =  var.vpc_id
-   ingress {
-    protocol = "TCP"
-    from_port = 22
-    to_port = 22
-    cidr_blocks = ["0.0.0.0/0"]
-   }
-
-   ingress {
-    protocol = "TCP"
-    from_port = 80
-    to_port = 80*
-    cidr_blocks = ["0.0.0.0/0"]
-   }
-
-   egress {
-    protocol = "-1"
-    from_port = 0
-    to_port = 0
-    cidr_blocks = ["0.0.0.0/0"]
-   }
- }  
+    name = "my-sec-group"
+    description = "allow-ssh and http"
+    vpc_id = var.vpc_id
+    ingress {
+        protocol = "TCP"
+        from_port = 22
+        to_port  = 22
+        cidr_blocks = ["0.0.0.0/0"]
+    }
+    ingress {
+        protocol = "TCP"
+        from_port = "80"
+        to_port  = "80"
+        cidr_blocks = ["0.0.0.0/0"]
+    }
+    egress {
+        protocol = "-1"  
+        from_port = 0
+        to_port = 0
+        cidr_blocks = ["0.0.0.0/0"]
+    }
+}
 
 
-resource "aws_instance" "my-instance" {
-    ami = var.image_id 
+# Launch AWS Instance
+resource "aws_instance" "my_instance" {
+    ami = var.image_id
     instance_type = var.machine_type
-    key_name = "univesal_key"
-    vpc_security_group_ids = ["sg-0f7ef2c962792ccbb", aws_security_group.my_sg.id]
+    key_name = "shubham-nv"
+    vpc_security_group_ids = [ "sg-0f0e3d11e9f465ba4", aws_security_group.my_sg.id ]
     tags = {
-      Name = "my_instance"
-      env = "dev"
-    }  
+        Name = "my-instance"
+        env = "dev"
+    }
 }
 
 resource "aws_instance" "another_instance" {
     ami = var.image_id
     instance_type = var.machine_type
-    key_name = ""univesal_key"
-    vpc_security_group_ids = ["sg-0f7ef2c962792ccbb"]
+    key_name = "shubham-nv"
+    vpc_security_group_ids = ["sg-0f0e3d11e9f465ba4"]
     tags = {
-        Name = "abcd-instance"
+        Name = "another-instance"
         env = "dev"
     }
 }
+
 
 # Variables
 
@@ -65,6 +64,5 @@ variable "machine_type" {
 }
 
 variable "vpc_id" {
-    default = "vpc-0b91c6bdd351646a1"
+    default = "vpc-06cf206737ed67da7"
 }
-
