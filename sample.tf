@@ -33,7 +33,7 @@ resource "aws_security_group" "my_sg" {
 resource "aws_instance" "my_instance" {
     ami = var.image_id
     instance_type = var.machine_type
-    key_name = "shubham-nv"
+    key_name = "univesal_key"
     vpc_security_group_ids = [ "sg-0f7ef2c962792ccbb", aws_security_group.my_sg.id ]
     tags = {
         Name = "my-instance"
@@ -44,7 +44,7 @@ resource "aws_instance" "my_instance" {
 resource "aws_instance" "another_instance" {
     ami = var.image_id
     instance_type = var.machine_type
-    key_name = "shubham-nv"
+    key_name = "univesal_key"
     vpc_security_group_ids = ["sg-0f7ef2c962792ccbb"]
     tags = {
         Name = "another-instance"
